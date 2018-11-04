@@ -26,23 +26,21 @@ def main():
 
         # pick a random polygon between the lower and upper bounds
         random_polygon_size = random.randint(polygon_lower_bound, polygon_upper_bound)
-        print(random_polygon_size)
 
         # build vertices
         vertices = Fractal.create_polygon_vertices(random_polygon_size)
 
         # create rule and give it a name
         rules = Fractal.build_multiple_history_restrictions(vertices, p_continue)
-        print(rules)
         name = Fractal.name_from_rules_shape(vertices, rules)
 
         # Initiate fractal, build with the rules, and save it
-        new_fractal = Fractal.Fractal(vertices, starting_point=(10,10))
-        new_fractal.build_fractal_restrict_multiple_history(iterations, rules)
-        new_fractal.plot_fractal(save=True, name=name, folder=fractal_path)
-
-
-
+        new_fractal = Fractal.Fractal(vertices, starting_point=(100,100))
+        success = new_fractal.build_fractal_restrict_multiple_history(iterations, rules)
+        if success:
+            new_fractal.plot_fractal(save=True, name=name, folder=fractal_path)
+        else:
+            print("No printing")
 
 
 if __name__ == "__main__":

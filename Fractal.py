@@ -109,14 +109,15 @@ class Fractal(object):
                 try:
                     new_vertex = random.choice(available_vertices)
                 except:
-                    print("Failed when trying to construct vertex: ", i)
-                    break
+                    #Returns false when restrictions prevent the completion of all iterations
+                    return False
 
                 last_x, last_y = self.fractal_points[-1]
                 self.fractal_points.append(self.midpoint(new_vertex, last_x, last_y))
 
                 historic_vertices.insert(0, new_vertex)
                 historic_vertices.pop()
+        return True
 
 
     def plot_vertices(self):
@@ -136,7 +137,10 @@ class Fractal(object):
 
         fractal_points_x = [point[0] for point in self.fractal_points]
         fractal_points_y = [point[1] for point in self.fractal_points]
-        plt.scatter(fractal_points_x, fractal_points_y, s=.05, c='black', marker=',')
+        plt.plot(fractal_points_x, fractal_points_y, markersize=.25, color='black', marker=',', linewidth=0)
+
+        plt.xticks([])
+        plt.yticks([])
 
         if folder:
             cwd = os.getcwd()
@@ -145,7 +149,7 @@ class Fractal(object):
             path = str(name) + ".png"
 
         if save:
-            plt.savefig(path, dpi=800)
+            plt.savefig(path, dpi=400)
             plt.close()
         else:
             plt.show()
@@ -210,7 +214,7 @@ def build_multiple_history_restrictions(vertices, p_cont):
     restrictions = {0: []}
 
     current_key = 0
-    while(p_cont > random.random()):
+    while(p_cont > random.random() or current_key==0):
 
         restrictions[current_key] = build_single_restriction(vertices)
 

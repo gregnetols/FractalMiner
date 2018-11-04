@@ -1,5 +1,5 @@
 polygon_lower_bound: 3
-polygon_upper_bound: 25
+polygon_upper_bound: 24
 p_continue: 0.5
-iterations: 100000
+iterations: 1000000
 fractal_path: 'C:\Users\Greg\Documents\GitHub\FractalMiner\Fractals'
